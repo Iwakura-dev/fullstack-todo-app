@@ -1,0 +1,44 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Директории сборки
+dist
+build
+
+# Логи
+logs
+*.log
+
+# Файлы окружения
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Тестовые файлы
+coverage/
+*.spec.ts
+*.test.ts
+
+# Документация
+docs/
+
+# Исключить все файлы, которые не нужны в образе
+*.md
+*.json
+*.ts
+*.js
+*.tsbuildinfo
