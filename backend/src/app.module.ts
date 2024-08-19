@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { User, UserSchema } from "./users/schema/users.schema";
 import { UsersModule } from "./users/users.module";
 import { GoodDeedsModule } from './good-deeds/good-deeds.module';
+import { FriendsModule } from './friends/friends.module';
 
 
 
@@ -20,6 +21,7 @@ import { GoodDeedsModule } from './good-deeds/good-deeds.module';
     UsersModule,
     AuthModule,
     GoodDeedsModule,
+    FriendsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
