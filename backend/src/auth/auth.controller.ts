@@ -8,7 +8,8 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: { username: string, password: string; }): Promise<UserDocument> {
-    return this.authService.register(body.username, body.password);
+    const user = await this.authService.register(body.username, body.password);
+    return user;
   }
 
   @Post('login')
@@ -17,6 +18,7 @@ export class AuthController {
     if (!user) {
       throw new Error("Invalid credentials!");
     }
-    return this.authService.login(user);
+    const token = await this.authService.login(user);
+    return { user, token };
   }
 }
