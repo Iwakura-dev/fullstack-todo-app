@@ -6,6 +6,7 @@ import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from './auth/auth.module';
 import { User, UserSchema } from "./users/schema/users.schema";
 import { UsersModule } from "./users/users.module";
+import { GoodDeedsModule } from './good-deeds/good-deeds.module';
 
 
 
@@ -18,6 +19,7 @@ import { UsersModule } from "./users/users.module";
   MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     UsersModule,
     AuthModule,
+    GoodDeedsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
