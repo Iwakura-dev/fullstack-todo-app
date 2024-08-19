@@ -9,11 +9,11 @@ export class GoodDeedsController {
 
   @Post('create')
   async create(@Body() body: { title: string, description: string; }, @Request() req): Promise<any> {
-    return this.goodDeedsService.create(req.user._id, body.title, body.description);
+    return this.goodDeedsService.create(req.user.userId, body.title, body.description);
   }
   @Get()
   async findAll(@Request() req): Promise<any> {
-    return this.goodDeedsService.findAll(req.user._id);
+    return this.goodDeedsService.findAll(req.user.userId);
   }
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<any> {

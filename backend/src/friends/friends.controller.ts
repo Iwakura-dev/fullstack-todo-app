@@ -9,10 +9,10 @@ export class FriendsController {
 
   @Post('/add-friends')
   async addFriend(@Body() body: { tag: string; }, @Request() req): Promise<any> {
-    return this.friendsService.addFriend(req.user._id, body.tag);
+    return this.friendsService.addFriend(req.user.userId, body.tag);
   }
   @Get()
   async findFriends(@Request() req): Promise<any> {
-    return this.friendsService.findFriends(req.user._id);
+    return this.friendsService.findFriends(req.user.userId);
   }
 }
