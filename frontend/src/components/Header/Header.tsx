@@ -31,7 +31,7 @@ export const Header = () => {
                     <Link
                       href={route.href}
                       className={clsx(
-                        "font-sm",
+                        "text-sm",
                         isActive ? "text-orange-500" : ""
                       )}
                     >
