@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authReducer from './features/authSlice';
 import todoSlice from './features/todoSlice';
+import friendsSlice from './features/friendsSlice';
 
 export const store = () => {
   return configureStore({
     reducer: {
       auth: authReducer,
       todo: todoSlice,
+      friends: friendsSlice,
     }
   });
 };
