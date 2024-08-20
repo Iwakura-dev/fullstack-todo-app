@@ -6,18 +6,23 @@ import Cookies from 'js-cookie';
 interface User {
   _id: string;
   username: string;
+  token: {
+    access_token: string;
+  };
 }
 
 interface AuthState {
   user: User | null;
-  token: string | null;
+  token: {
+    access_token: string | null;
+  };
   loading: boolean;
   error: SerializedError;
 }
 
 const initialState: AuthState = {
   user: null,
-  token: null,
+  token: { access_token: '' },
   loading: false,
   error: {
     name: "",
@@ -43,14 +48,14 @@ export const registerUser = createAsyncThunk<User, { username: string; password:
 );
 
 
-export const loginUser = createAsyncThunk<User & { token: string; }, { username: string; password: string; }, { rejectValue: string; }>(
+export const loginUser = createAsyncThunk<User & { token: { access_token: string; }; }, { username: string; password: string; }, { rejectValue: string; }>(
   'auth/loginUser',
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const response = await instance.post('/auth/login', { username, password });
       const { user, token } = response.data;
 
-      return { _id: user._id, username: user.username, token };
+      return { _id: user._id, username: user.username, token: { access_token: token.access_token } };
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         return rejectWithValue(error.response.data.message || 'Login failed');
@@ -66,7 +71,7 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
-      state.token = null;
+      state.token = { access_token: '' };
     }
   },
   extraReducers: (builder) => {
@@ -77,6 +82,7 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.token = action.payload.token;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -89,6 +95,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.token = action.payload.token;
+        Cookies.set('jwt', action.payload.token.access_token, { expires: 7 });
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

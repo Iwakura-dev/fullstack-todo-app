@@ -7,8 +7,8 @@ export class UsersController {
   constructor(private readonly userService: UsersService) { }
 
   @Post()
-  create(@Body() body: { username: string, password: string; }): Promise<User> {
-    return this.userService.create(body.username, body.password);
+  create(@Body() body: { username: string, password: string; email: string; }): Promise<User> {
+    return this.userService.create(body.username, body.password, body.email);
   }
   @Get()
   findAll(): Promise<User[]> {

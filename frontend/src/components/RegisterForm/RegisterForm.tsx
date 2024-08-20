@@ -2,17 +2,24 @@
 
 import { registerUser } from "@/lib/features/authSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/store";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state) => state.auth);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(registerUser({ username, password }));
+    try {
+      await dispatch(registerUser({ username, password })).unwrap();
+      router.push("/login");
+    } catch (error) {
+      console.error("Register failed:", error);
+    }
   };
 
   return (

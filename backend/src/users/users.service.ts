@@ -8,8 +8,8 @@ import { UserInterface } from './schema/user.interface';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-  async create(username: string, password: string): Promise<UserDocument> {
-    const newUser = new this.userModel({ username, password });
+  async create(username: string, password: string, email: string): Promise<UserDocument> {
+    const newUser = new this.userModel({ username, password, email });
     return newUser.save();
   }
 
@@ -19,6 +19,10 @@ export class UsersService {
 
   async findOneByUsername(username: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ username }).exec();
+  }
+
+  async findOneByEmail(email: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ email }).exec();
   }
 
   async findOne(id: string): Promise<UserDocument> {

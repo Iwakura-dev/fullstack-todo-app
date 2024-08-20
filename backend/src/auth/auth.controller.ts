@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, ConflictException, Controller, Post } from '@nestjs/common';
 import { AuthService } from "./auth.service";
 import { UserDocument } from "../users/schema/users.schema";
 
@@ -7,9 +7,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) { }
 
   @Post('register')
-  async register(@Body() body: { username: string, password: string; }): Promise<UserDocument> {
-    const user = await this.authService.register(body.username, body.password);
-    return user;
+  async register(@Body() body: { username: string; password: string; email?: string; }): Promise<UserDocument> {
+    try {
+      const user = await this.authService.register(body.username, body.password, body.email);
+      return user;
+    } catch (error) {
+      throw new ConflictException(error.message);
+    }
   }
 
   @Post('login')
