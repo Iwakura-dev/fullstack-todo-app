@@ -10,13 +10,15 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByUsername(username);
-    if (user && (await argon2.verify(password, user.password))) {
-      const { password, ...result } = user.toObject();
-      return result;
+    if (user) {
+      const isPasswordValid = await argon2.verify(user.password, password);
+      if (isPasswordValid) {
+        const { password, ...result } = user.toObject();
+        return result;
+      }
     }
     return null;
   }
-
   async login(user: any) {
     const payload = { username: user.username, sub: user._id };
     return {
@@ -28,14 +30,12 @@ export class AuthService {
     if (existingUser) {
       throw new ConflictException('Username already exists!');
     }
-
     if (email) {
       const existingEmailUser = await this.usersService.findOneByEmail(email);
       if (existingEmailUser) {
         throw new ConflictException('Email already exists!');
       }
     }
-
     const hashedPassword = await argon2.hash(password);
     return this.usersService.create(username, hashedPassword, email);
   }
