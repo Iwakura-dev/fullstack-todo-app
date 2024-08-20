@@ -24,7 +24,13 @@ export default function Friends() {
         <CreateFriendForm />
         <ul className="grid grid-cols-3 gap-20">
           {friends.map((friend) => {
-            return <DisplayFriend id={friend._id as string} tag={friend.tag} />;
+            return (
+              <DisplayFriend
+                key={friend._id}
+                id={friend._id as string}
+                tag={friend.tag}
+              />
+            );
           })}
         </ul>
       </Main>

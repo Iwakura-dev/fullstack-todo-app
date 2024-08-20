@@ -50,9 +50,7 @@ export const loginUser = createAsyncThunk<User & { token: string; }, { username:
       const response = await instance.post('/auth/login', { username, password });
       const { user, token } = response.data;
 
-      Cookies.set('jwt', token.access_token, { expires: 3 });
-
-      return { user, token };
+      return { _id: user._id, username: user.username, token };
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         return rejectWithValue(error.response.data.message || 'Login failed');

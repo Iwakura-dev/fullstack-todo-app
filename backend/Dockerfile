@@ -4,11 +4,11 @@ WORKDIR /backend
 
 COPY package*.json yarn.lock ./
 
-RUN npm install --force
+RUN npm install
 
 COPY . .
 
-COPY .env .env.development ./
+COPY .env .env.local ./
 
 RUN npm run build
 

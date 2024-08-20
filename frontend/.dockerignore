@@ -12,8 +12,6 @@ logs
 *.log
 
 # Файлы окружения
-.env
-.env.local
 .env.development
 .env.production
 .env.test
@@ -38,7 +36,6 @@ docs/
 
 # Исключить все файлы, которые не нужны в образе
 *.md
-*.json
 *.ts
 *.js
 *.tsbuildinfo

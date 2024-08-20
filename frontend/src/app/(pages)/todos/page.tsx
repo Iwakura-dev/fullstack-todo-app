@@ -25,6 +25,7 @@ export default function Todos() {
           {todos.map((todo) => {
             return (
               <DisplayTodo
+                key={todo._id}
                 id={todo._id}
                 title={todo.title as string}
                 description={todo.description as string}

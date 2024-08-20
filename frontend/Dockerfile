@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18.19.0-slim
 
 WORKDIR /frontend
 
@@ -6,10 +6,12 @@ WORKDIR /frontend
 COPY package*.json ./
 
 
-RUN npm ci
+RUN npm install
 
 
 COPY . .
+
+COPY .env .env.local ./
 
 
 RUN npm run build
