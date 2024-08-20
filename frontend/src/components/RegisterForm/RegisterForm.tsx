@@ -14,12 +14,8 @@ export const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await dispatch(registerUser({ username, password })).unwrap();
-      router.push("/login");
-    } catch (error) {
-      console.error("Register failed:", error);
-    }
+    dispatch(registerUser({ username, password })).unwrap();
+    router.push("/login");
   };
 
   return (

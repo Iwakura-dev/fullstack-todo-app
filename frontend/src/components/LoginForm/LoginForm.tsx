@@ -12,14 +12,9 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const { loading, error } = useAppSelector((state) => state.auth);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      await dispatch(loginUser({ username, password })).unwrap();
-      router.push("/");
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
+    dispatch(loginUser({ username, password })).unwrap();
   };
 
   const handleRegisterRedirect = () => {
