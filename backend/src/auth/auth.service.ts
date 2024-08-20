@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { UserDocument } from '../users/schema/users.schema';
 import { JwtService } from "@nestjs/jwt";
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +10,7 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findOneByUsername(username);
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await argon2.verify(password, user.password))) {
       const { password, ...result } = user.toObject();
       return result;
     }
@@ -36,7 +36,7 @@ export class AuthService {
       }
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await argon2.hash(password);
     return this.usersService.create(username, hashedPassword, email);
   }
 }
