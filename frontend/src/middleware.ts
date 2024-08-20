@@ -3,7 +3,7 @@ import { verifyJwtToken } from "./utils/auth.utils";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("jwt")?.value;
-
+  console.log("Token from cookies:", token);
   const verifiedToken =
     token &&
     (await verifyJwtToken(token).catch((err) => {
