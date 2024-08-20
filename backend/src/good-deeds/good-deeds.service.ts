@@ -15,12 +15,12 @@ export class GoodDeedsService {
     return this.goodDeedModel.find({ userId }).exec();
   }
   async findOne(userId: string): Promise<GoodDeed> {
-    return this.goodDeedModel.findById(userId);
+    return this.goodDeedModel.findById(userId).exec();
   }
   async update(id: string, title: string, description: string): Promise<GoodDeed> {
     return this.goodDeedModel.findByIdAndUpdate(id, { title, description }, { new: true }).exec();
   }
   async delete(userId: string): Promise<GoodDeed> {
-    return this.goodDeedModel.findByIdAndDelete(userId);
+    return this.goodDeedModel.findByIdAndDelete(userId).exec();
   }
 }
