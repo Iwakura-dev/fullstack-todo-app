@@ -13,8 +13,10 @@ export async function verifyJwtToken(token: string) {
       token,
       new TextEncoder().encode(getJwtSecretKey())
     );
+    console.log("Token verified successfully:", verified);
     return verified.payload;
   } catch (error) {
-    throw new Error("Your token is expired");
+    console.error("Token verification error:", error);
+    throw new Error("Your token is expired or invalid");
   }
 }
