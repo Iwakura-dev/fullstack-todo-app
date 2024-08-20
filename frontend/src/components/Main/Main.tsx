@@ -8,9 +8,9 @@ export const Main = ({
   children: ReactNode;
 }) => {
   return (
-    <main className="flex flex-col justify-center items-center py-6">
+    <main className="flex flex-col justify-center items-center gap-5 py-6">
       <div>
-        <h1>{title}</h1>
+        <h1 className="text-2xl">{title}</h1>
       </div>
       {children}
     </main>
